@@ -1,0 +1,233 @@
+/* Structure générale */
+.App {
+  text-align: center;
+}
+
+.App-header,
+.App-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+/* App.css */
+
+
+
+body.dark {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.bouton-theme {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+body.dark .bouton-theme {
+  background-color: #6c63ff;
+  color: #fff;
+}
+
+/* Logo animé */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.nav-formulaires {
+  display: flex;
+  justify-content: center; /* ✅ Centrage horizontal */
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-formulaires button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00d5ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-formulaires button:hover {
+  background-color: #009ecf;
+  transform: scale(1.05);
+}
+
+body.dark .nav-formulaires button {
+  background-color: #6c63ff;
+}
+
+.bouton-deconnexion{
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+  margin-right: 12px; /* ✅ Décalage du bouton thème */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.message-bienvenue {
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f0f8ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .message-bienvenue {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.05);
+}
+
+/* Animation d’apparition */
+.animated {
+  animation: fadeSlideIn 0.6s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style du titre */
+.salutation {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+body.dark .salutation {
+  color: #ffffff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+
+.bouton-deconnexion:hover {
+  background-color: #c62828;
+  transform: scale(1.05);
+}
+
+body.dark .bouton-deconnexion {
+  background-color: #ff5252;
+  color: #222;
+}
+
+body.dark .bouton-deconnexion:hover {
+  background-color: #ff867c;
+}
+
+
+.zone-formulaire {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Lien stylisé */
+.App-link {
+  color: #61dafb;
+}
+
+/* Bouton du prêtre */
+.bouton-pretre {
+  background-color: #4b6cb7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 12px 0;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bouton-pretre:hover {
+  background-color: #3a539b;
+}
+
+/* Badge de compteur */
+.badge {
+  background-color: crimson;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+/* Animation entre formulaires */
+.form-container {
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Thème clair */
+body.light {
+  background-color: #f9f9f9;
+  color: #333;}
