@@ -10,6 +10,8 @@ import EspacePretre from './EspacePretre';
 import FormulaireBapteme from './FormulaireBapteme';
 import FormulaireConfirmation from './FormulaireConfirmation';
 import FormulaireMariage from './FormulaireMariage';
+import MediaSection from './MediaSection';
+import Footer from './Footer';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -111,14 +113,17 @@ function App() {
 
   return (
     <Router>
+          <MediaSection /> {/* Le logo s'affichera en haut de toutes les pages */}
       <Routes>
         <Route path="/espace-pretre/bapteme" element={<FormulaireBapteme />} />
         <Route path="/espace-pretre/confirmation" element={<FormulaireConfirmation />} />
         <Route path="/espace-pretre/mariage" element={<FormulaireMariage />} />
         <Route
           path="/"
+          
           element={
-            <div className="App">
+            <div className="app-padding">
+
               {isAuthenticated ? (
                 <div className="dashboard">
                   <h2
@@ -131,6 +136,7 @@ function App() {
                           : role === 'pretre'
                           ? '#c142ae'
                           : '#333',
+                          textAlign: 'center', marginBottom: '20px',
                     }}
                   >
                     {role === 'demandeur' && '👤 ESPACE CLIENT'}
@@ -145,9 +151,10 @@ function App() {
                     <p>
                       Que la Grâce et la Paix de Jésus-Christ vous accompagne dans chaque démarche. Amen.
                     </p>
+
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '40px' }}>
+                  <div className="boutons-actions" style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '40px' }}>
                     <button className="bouton-deconnexion" onClick={handleLogout}>Déconnexion</button>
                     <button className="bouton-theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
                       {theme === 'light' ? '🌙 Mode sombre' : '☀️ Mode clair'}
@@ -182,6 +189,7 @@ function App() {
                   </div>
                 </div>
               )}
+              <Footer /> {/* Le footer s'affichera en bas de toutes les pages */}
             </div>
           }
         />

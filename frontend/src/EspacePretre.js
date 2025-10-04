@@ -310,7 +310,7 @@ const EspacePretre = ({ currentUser }) => {
           </div>
 
           {renderTable('Demandes de Baptême', baptemes, 'baptemes', [
-            'id', 'nom', 'prenom', 'DateBapteme', 'LieuBapteme', 'NbrExemplaires',
+            'id', 'nom', 'prenom', 'naissance', 'DateBapteme', 'AnneeBapteme', 'Confirme', 'Marie','NbrExemplaires',
             'Telephone', 'Email', 'created_at'
           ])}
 
@@ -325,7 +325,7 @@ const EspacePretre = ({ currentUser }) => {
           ])}
 
           {renderTable('Demandes de Mariage', mariages, 'mariages', [
-            'id', 'nom_epoux', 'nom_epouse', 'DateMariage', 'LieuMariage', 'NbrExemplaires',
+            'id', 'nom', 'prenom', 'DateMariage', 'AvecQui','LieuMariage', 'NbrExemplaires',
             'Telephone', 'Email', 'created_at'
           ])}
         </>

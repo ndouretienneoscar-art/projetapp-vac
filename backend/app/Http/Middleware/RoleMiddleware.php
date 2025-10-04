@@ -12,9 +12,10 @@ class RoleMiddleware
     {
         $user = $request->user();
 
-        if (!$user || $user->role->name !== $role) {
-            return response()->json(['message' => 'Accès refusé.'], 403);
-        }
+      if (!$user || !$user->role || $user->role->name !== $role) {
+    return response()->json(['message' => 'Accès refusé.'], 403);
+}
+
 
         return $next($request);
     }

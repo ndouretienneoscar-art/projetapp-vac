@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -34,7 +33,7 @@ class DemandeMesseController extends Controller
             return DemandeMesse::where('statut', 'transmis_secretaire')->get();
         }
 
-        return DemandeMesse::all();
+        return response()->json(['message' => 'Rôle non reconnu'], 403);
     }
 
     /**
@@ -42,22 +41,22 @@ class DemandeMesseController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'type_messe' => 'required|string',
-            'montant' => 'required|numeric',
-            'intention' => 'required|string',
-            'beneficiaire' => 'required|string',
-            'date_messe' => 'required|date',
-            'heure_messe' => 'required',
-            'demandeur' => 'required|string',
-            'telephone_demandeur' => 'required|string',
-        ]);
+        $user = Auth::user();
 
-        $validated['user_id'] = Auth::id(); // associer la demande à l'utilisateur
+        if (!$user || !$user->role || $user->role->name !== 'demandeur') {
+            return response()->json(['message' => 'Seuls les demandeurs peuvent soumettre une demande.'], 403);
+        }
+
+        $validated = $this->validateDemande($request);
+        $validated['user_id'] = $user->id;
+        $validated['statut'] = 'en_attente';
 
         $demande = DemandeMesse::create($validated);
 
-        return response()->json($demande, 201);
+        return response()->json([
+            'message' => '🙏 Votre demande a été enregistrée avec foi. Elle sera traitée avec soin.',
+            'demande' => $demande
+        ], 201);
     }
 
     /**
@@ -73,10 +72,6 @@ class DemandeMesseController extends Controller
 
         return response()->json($demande);
     }
-
-    /**
-     * Met à jour une demande
-     */
     public function update(Request $request, $id)
     {
         $demande = DemandeMesse::find($id);
@@ -85,16 +80,7 @@ class DemandeMesseController extends Controller
             return response()->json(['message' => 'Demande de messe non trouvée'], 404);
         }
 
-        $validated = $request->validate([
-            'type_messe' => 'required|string',
-            'montant' => 'required|numeric',
-            'intention' => 'required|string',
-            'beneficiaire' => 'required|string',
-            'date_messe' => 'required|date',
-            'heure_messe' => 'required',
-            'demandeur' => 'required|string',
-            'telephone_demandeur' => 'required|string',
-        ]);
+        $validated = $this->validateDemande($request);
 
         $demande->update($validated);
 
@@ -114,7 +100,7 @@ class DemandeMesseController extends Controller
 
         $demande->delete();
 
-        return response()->json(['message' => 'Demande de messe supprimée']);
+        return response()->json(['message' => '🕊️ Demande de messe supprimée avec succès.']);
     }
 
     /**
@@ -130,13 +116,16 @@ class DemandeMesseController extends Controller
 
         $demande->statut = 'transmis_secretaire';
 
-        if ($request->has('pretre_id')) {
+        if ($request->filled('pretre_id')) {
             $demande->pretre_id = $request->input('pretre_id');
         }
 
         $demande->save();
 
-        return response()->json(['message' => 'Demande transférée au prêtre', 'demande' => $demande]);
+        return response()->json([
+            'message' => '📨 Demande transférée au prêtre avec foi.',
+            'demande' => $demande
+        ]);
     }
 
     /**
@@ -171,9 +160,30 @@ class DemandeMesseController extends Controller
         ) {
             $demande->statut = $nouveauStatut;
             $demande->save();
-            return response()->json($demande);
+
+            return response()->json([
+                'message' => '✅ Statut mis à jour avec succès.',
+                'demande' => $demande
+            ]);
         }
 
         return response()->json(['message' => 'Action non autorisée'], 403);
+    }
+
+    /**
+     * Validation centralisée
+     */
+    private function validateDemande(Request $request)
+    {
+        return $request->validate([
+            'type_messe' => 'required|string|max:100',
+            'montant' => 'required|numeric|min:0',
+            'intention' => 'required|string|max:255',
+            'beneficiaire' => 'required|string|max:100',
+            'date_messe' => 'required|date',
+            'heure_messe' => 'required|string|max:10',
+            'demandeur' => 'required|string|max:100',
+            'telephone_demandeur' => 'required|string|max:20',
+        ]);
     }
 }

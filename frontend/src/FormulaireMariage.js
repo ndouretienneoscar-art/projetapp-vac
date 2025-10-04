@@ -28,7 +28,7 @@ const FormulaireMariage = () => {
       <button onClick={() => navigate(-1)} style={backButtonStyle}>↩ Retour</button>
 
       <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={titleStyle}>Demande d'attestation de mariage</h2>
+        <h2 style={titleStyle}> Attestation de mariage</h2>
 
         <label htmlFor="nom" style={labelStyle}>Nom</label>
         <input id="nom" name="nom" required onChange={handleChange} />

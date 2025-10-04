@@ -27,7 +27,7 @@ const FormulaireConfirmation = () => {
       <button onClick={() => navigate(-1)} style={backButtonStyle}>↩ Retour</button>
 
       <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={titleStyle}>Demande de certificat de confirmation</h2>
+        <h2 style={titleStyle}>Attestation de confirmation</h2>
 
         <label htmlFor="nom" style={labelStyle}>Nom</label>
         <input id="nom" name="nom" required onChange={handleChange} />

@@ -1,6 +1,41 @@
 /* Structure générale */
-.App {
-  text-align: center;
+.app-padding {
+  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* espace pour le footer fixé */
+}
+.dashboard,
+.form-container {
+  flex: 1;
+}
+.boutons-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .message-bienvenue {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .salutation {
+    font-size: 18px;
+  }
+
+  .bouton-theme,
+  .bouton-deconnexion {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .nav-formulaires button {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
 }
 
 .App-header,
@@ -20,6 +55,9 @@ body.dark {
   background-color: #1e1e1e;
   color: #f5f5f5;
   transition: background-color 0.3s ease, color 0.3s ease;
+  --footer-bg: #2c2c2c;
+  --footer-text: #f0f0f0;
+  --footer-muted: #aaa;
 }
 
 .bouton-theme {
@@ -230,4 +268,8 @@ body.dark .bouton-deconnexion:hover {
 /* Thème clair */
 body.light {
   background-color: #f9f9f9;
-  color: #333;}
+  color: #333;
+  --footer-bg: #f3eae3;
+  --footer-text: #333;
+  --footer-muted: #777;};
+  

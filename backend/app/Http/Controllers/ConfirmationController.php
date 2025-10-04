@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -31,7 +30,7 @@ class ConfirmationController extends Controller
         }
 
         if ($role === 'pretre') {
-            return Confirmation::where('statut', 'transmis_secretaire')->get();
+            return Confirmation::all(); // ou filtrer selon besoin
         }
 
         return Confirmation::all();
@@ -102,70 +101,6 @@ class ConfirmationController extends Controller
         $confirmation->delete();
 
         return response()->json(['message' => 'Confirmation supprimée']);
-    }
-
-    /**
-     * Transfère une demande au prêtre
-     */
-    public function transferToPretre($id, Request $request)
-    {
-        $confirmation = Confirmation::find($id);
-
-        if (!$confirmation) {
-            return response()->json(['message' => 'Confirmation non trouvée'], 404);
-        }
-
-        $confirmation->statut = 'transmis_secretaire';
-
-        if ($request->filled('pretre_id')) {
-            $confirmation->pretre_id = $request->input('pretre_id');
-        }
-
-        $confirmation->save();
-
-        return response()->json([
-            'message' => 'Demande transférée au prêtre',
-            'confirmation' => $confirmation
-        ]);
-    }
-
-    /**
-     * Change le statut selon le rôle
-     */
-    public function changerStatut(Request $request, $id)
-    {
-        $user = Auth::user();
-        $confirmation = Confirmation::find($id);
-
-        if (!$confirmation) {
-            return response()->json(['message' => 'Confirmation non trouvée'], 404);
-        }
-
-        $nouveauStatut = $request->input('statut');
-        $statutsPossibles = ['en_attente', 'transmis_secretaire', 'transmis_pretre', 'traite'];
-
-        if (!in_array($nouveauStatut, $statutsPossibles)) {
-            return response()->json(['message' => 'Statut invalide'], 400);
-        }
-
-        if (!$user || !$user->role) {
-            return response()->json(['message' => 'Utilisateur ou rôle non défini'], 403);
-        }
-
-        $role = $user->role->name;
-
-        if (
-            ($role === 'secretaire' && $confirmation->statut === 'en_attente' && $nouveauStatut === 'transmis_secretaire') ||
-            ($role === 'pretre' && $confirmation->statut === 'transmis_secretaire' && in_array($nouveauStatut, ['transmis_pretre', 'traite'])) ||
-            ($role === 'admin')
-        ) {
-            $confirmation->statut = $nouveauStatut;
-            $confirmation->save();
-
-            return response()->json($confirmation);
-        }
-
-        return response()->json(['message' => 'Action non autorisée'], 403);
     }
 
     /**

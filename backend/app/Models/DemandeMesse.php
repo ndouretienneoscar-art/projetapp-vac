@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DemandeMesse extends Model
 {
+    use HasFactory;
+
     protected $table = 'demande_messes';
 
     protected $fillable = [
@@ -17,6 +20,14 @@ class DemandeMesse extends Model
         'heure_messe',
         'demandeur',
         'telephone_demandeur',
+        'user_id',
         'statut',
+        'pretre_id',
+        'paiement',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
