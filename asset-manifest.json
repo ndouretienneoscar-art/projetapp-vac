@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/projetapp-vac/static/css/main.42c47641.css",
+    "main.js": "/projetapp-vac/static/js/main.ca20b2ae.js",
+    "static/media/logo.jpg": "/projetapp-vac/static/media/logo.e6424b92757d31d4ed2b.jpg",
+    "index.html": "/projetapp-vac/index.html",
+    "main.42c47641.css.map": "/projetapp-vac/static/css/main.42c47641.css.map",
+    "main.ca20b2ae.js.map": "/projetapp-vac/static/js/main.ca20b2ae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42c47641.css",
+    "static/js/main.ca20b2ae.js"
+  ]
+}
